@@ -76,12 +76,12 @@ public abstract class EnemyBase : MonoBehaviour
     }
     
 
-    protected virtual void Die()
+    public virtual void Die()
     {
         isDead = true;
         agent.isStopped = true;
        
-        Destroy(gameObject, 1f); // delay if you want death anim
+         // delay if you want death anim
     }
 
    
