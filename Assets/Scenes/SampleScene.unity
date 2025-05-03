@@ -556,7 +556,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4166463531722480, guid: 8d43e76b346f2f8448846e9211629d15, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.14999998
+      value: -0.15
       objectReference: {fileID: 0}
     - target: {fileID: 4166463531722480, guid: 8d43e76b346f2f8448846e9211629d15, type: 3}
       propertyPath: m_LocalPosition.z
@@ -700,15 +700,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8025400839647136224, guid: 8d43e76b346f2f8448846e9211629d15, type: 3}
       propertyPath: damage
-      value: 20
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 8025400839647136224, guid: 8d43e76b346f2f8448846e9211629d15, type: 3}
       propertyPath: fpsCam
       value: 
       objectReference: {fileID: 1956458531}
     - target: {fileID: 8025400839647136224, guid: 8d43e76b346f2f8448846e9211629d15, type: 3}
+      propertyPath: Animator
+      value: 
+      objectReference: {fileID: 1102518989}
+    - target: {fileID: 8025400839647136224, guid: 8d43e76b346f2f8448846e9211629d15, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1102518989}
+    - target: {fileID: 8025400839647136224, guid: 8d43e76b346f2f8448846e9211629d15, type: 3}
       propertyPath: fireRate
-      value: 3.5
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025400839647136224, guid: 8d43e76b346f2f8448846e9211629d15, type: 3}
+      propertyPath: magazine
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025400839647136224, guid: 8d43e76b346f2f8448846e9211629d15, type: 3}
+      propertyPath: reloadTime
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8025400839647136224, guid: 8d43e76b346f2f8448846e9211629d15, type: 3}
       propertyPath: muzzleFlash
@@ -5856,6 +5872,9 @@ MonoBehaviour:
   range: 100
   fireRate: 4.5
   nextTimeToFire: 0.2
+  magazine: 30
+  reloadTime: 1.5
+  animator: {fileID: 1102518989}
   fpsCam: {fileID: 1956458531}
   muzzleFlash: {fileID: 647197169}
   impactEffect: {fileID: 5238538877814813142, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}
@@ -12117,6 +12136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1102518987}
   - component: {fileID: 1102518988}
+  - component: {fileID: 1102518989}
   m_Layer: 0
   m_Name: WeaponHolder
   m_TagString: Untagged
@@ -12154,6 +12174,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedWeapon: 1
+--- !u!95 &1102518989
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102518986}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 045cf89e5278cc548b083758d0b30c44, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1130519917
 GameObject:
   m_ObjectHideFlags: 0
