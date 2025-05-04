@@ -7,9 +7,9 @@ using Random = UnityEngine.Random;
 
 public class PlayerHealth : MonoBehaviour
 {   
-    private float health;
+    [SerializeField]private float health;
     private float lerpTimer;
-    [SerializeField] public int maxHealth;
+    public int maxHealth;
     public float chipSpeed =2f;
     public Image frontHealthBar;
     public Image backHealthBar;
