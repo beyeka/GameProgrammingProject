@@ -3,17 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
+using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {   
     [SerializeField]private float health;
     private float lerpTimer;
-    public int maxHealth;
+    public float maxHealth;
     public float chipSpeed =2f;
     public Image frontHealthBar;
     public Image backHealthBar;
-   
+    public TextMeshProUGUI healthText;
         
     private void Start()
     {
@@ -59,6 +59,8 @@ public class PlayerHealth : MonoBehaviour
             percentComplete *= percentComplete;
             frontHealthBar.fillAmount = Mathf.Lerp(fillFront, backHealthBar.fillAmount, percentComplete);
         }
+
+        healthText.text = Mathf.Round(health) + "/" + Mathf.Round(maxHealth);   
     }
 
     public void TakeDamage(float amount)
@@ -75,9 +77,9 @@ public class PlayerHealth : MonoBehaviour
     {
         health += healAmount;
         lerpTimer = 0f;
-        if (health > 100)
+        if (health > maxHealth)
         {
-            health = 100;
+            health = maxHealth;
         }   
     }
     public void Die()
@@ -85,6 +87,10 @@ public class PlayerHealth : MonoBehaviour
         
         
     }
-    
+
+    public void IncreaseHealth()
+    {
+        maxHealth += health * 0.1f;
+    }
     
 }
