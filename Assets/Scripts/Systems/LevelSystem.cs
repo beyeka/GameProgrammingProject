@@ -22,7 +22,7 @@ public class LevelSystem : MonoBehaviour
     {
         frontXpBar.fillAmount = currentXp / requiredXp;
         backXpBar.fillAmount = currentXp / requiredXp;
-        levelText.text = "Level" + level;
+        levelText.text = "Level " + level;
     }
 
     // Update is called once per frame
@@ -74,7 +74,7 @@ public class LevelSystem : MonoBehaviour
         backXpBar.fillAmount = 0f;
         currentXp = Mathf.RoundToInt(currentXp - requiredXp);
         GetComponent<PlayerHealth>().IncreaseHealth();
-        levelText.text = "Level" + level;
+        levelText.text = "Level " + level;
         requiredXp += level * 6;
     }
     

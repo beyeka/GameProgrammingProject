@@ -9,7 +9,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected float damage = 10f;
     [SerializeField] protected float attackRange = 1.5f;
     [SerializeField] protected float attackCooldown = 1f;
-
+    [SerializeField] protected float expValue = 15;
     protected float currentHealth;
     protected NavMeshAgent agent;
     protected Transform playerTransform;
@@ -80,9 +80,23 @@ public abstract class EnemyBase : MonoBehaviour
     {
         isDead = true;
         agent.isStopped = true;
-       
-         // delay if you want death anim
+
+        GiveExp(expValue);
+
+        // optionally play death anim, destroy gameObject, etc.
+        Destroy(gameObject);
     }
 
-   
-   }
+
+    public virtual void GiveExp(float xpValue)
+    {
+        if (playerTransform == null) return;
+
+        LevelSystem levelSystem = playerTransform.GetComponent<LevelSystem>();
+        if (levelSystem != null)
+        {
+            levelSystem.GainExperienceFlatRate(expValue);
+        }
+    }
+
+}

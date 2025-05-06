@@ -7,7 +7,7 @@ public class VirusEnemy : EnemyBase
 
     protected override void Start()
     {
-
+        
         maxHealth = 30f;
         damage = virusDamage;
         attackCooldown = Mathf.Infinity; 
@@ -33,7 +33,7 @@ public class VirusEnemy : EnemyBase
     private void OnTriggerEnter(Collider other)
     {
         if (isDead) return;
-        Debug.Log("I HIT THE PLAYER");
+        
         if (other.CompareTag("Player"))
         {
             DealDamage(other.gameObject);
@@ -41,16 +41,9 @@ public class VirusEnemy : EnemyBase
         }
     }
 
-    public override void Die()
-    {
-        Destroy(gameObject);
-    }
-
+    
    
-    public override void Attack()
-    {
-        
-    }
+    
 
     
 }
