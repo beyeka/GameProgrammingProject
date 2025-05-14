@@ -32,6 +32,8 @@ public class VirusEnemy : EnemyBase
     }
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("I HIT THE ENEMY");
+        
         if (isDead) return;
         
         if (other.CompareTag("Player"))
