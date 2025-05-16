@@ -19,4 +19,4 @@ MonoBehaviour:
   attackRange: 0
   attackCooldown: 0
   experienceReward: 15
-  overrideMoveSpeed: 5
+  overrideMoveSpeed: 4

@@ -12,7 +12,8 @@ public class Gun : MonoBehaviour
     private int currentAmmo;
     public float reloadTime = 1f;
     private bool isReload = false;
-
+    private bool infiniteAmmo = false;
+    
     public Animator animator;
     public Camera fpsCam;
     public ParticleSystem muzzleFlash;
@@ -52,7 +53,10 @@ public class Gun : MonoBehaviour
      void Shoot()
      {
          muzzleFlash.Play();
+         
+         if(!infiniteAmmo)
          currentAmmo--;
+         
          RaycastHit hit;
         
          if (Physics.Raycast( fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
@@ -87,5 +91,30 @@ public class Gun : MonoBehaviour
          isReload = false;
      }
     
-    
+     public void ApplyFireRateBoost(float multiplier, float duration)
+     {
+         StartCoroutine(FireRateBoostRoutine(multiplier, duration));
+     }
+
+     private IEnumerator FireRateBoostRoutine(float multiplier, float duration)
+     {
+         fireRate *= multiplier;
+         yield return new WaitForSeconds(duration);
+         fireRate /= multiplier;
+     }
+     
+     public void EnableInfiniteAmmo(float duration)
+     {
+         StartCoroutine(InfiniteAmmoRoutine(duration));
+     }
+
+     private IEnumerator InfiniteAmmoRoutine(float duration)
+     {
+         infiniteAmmo = true;
+         yield return new WaitForSeconds(duration);
+         infiniteAmmo = false;
+     }
+     
+     
+     
 }

@@ -58,4 +58,18 @@ public class PlayerMovement : MonoBehaviour
         }    
     }
     
+    public void ApplySpeedBoost(float multiplier, float duration)
+    {
+        StartCoroutine(SpeedBoostRoutine(multiplier, duration));
+    }
+
+    private IEnumerator SpeedBoostRoutine(float multiplier, float duration)
+    {
+        movementSpeed *= multiplier;
+        yield return new WaitForSeconds(duration);
+        movementSpeed /= multiplier;
+    }
+    
+    
+    
 }

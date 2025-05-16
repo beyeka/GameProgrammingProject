@@ -75,12 +75,9 @@ public class PlayerHealth : MonoBehaviour
 
     public void RestoreHealth(float healAmount)
     {
-        health += healAmount;
+        health = Mathf.Min(health + healAmount, maxHealth);
         lerpTimer = 0f;
-        if (health > maxHealth)
-        {
-            health = maxHealth;
-        }   
+        
     }
     public void Die()
     {
