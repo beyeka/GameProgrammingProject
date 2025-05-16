@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using TMPro;
 public class Gun : MonoBehaviour
 {
     public float damage = 10f;
@@ -18,10 +19,11 @@ public class Gun : MonoBehaviour
     public Camera fpsCam;
     public ParticleSystem muzzleFlash;
     public GameObject impactEffect;
-
+    public TextMeshProUGUI ammoText;
     void Start()
     {
         currentAmmo = magazine;
+        ammoText.text = currentAmmo + "/" + magazine; 
     }
 
     void OnEnable()
@@ -61,21 +63,18 @@ public class Gun : MonoBehaviour
         
          if (Physics.Raycast( fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
          {
-            // Debug.DrawLine(fpsCam.transform.position, hit.point, Color.red, 1f);
-
              EnemyBase enemy = hit.collider.GetComponent<EnemyBase>();
 
              if (enemy!=null)
              {
                  enemy.TakeDamage(damage);
              }
-
              
              GameObject destroyEffect =Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
              Destroy(destroyEffect,0.3f);
          }
 
-
+         ammoText.text = currentAmmo + "/" + magazine; 
      }
 
      IEnumerator Reload()

@@ -87,7 +87,9 @@ public class PlayerHealth : MonoBehaviour
 
     public void IncreaseHealth()
     {
-        maxHealth += health * 0.1f;
+        
+        maxHealth += maxHealth * 0.1f;
+        health += maxHealth * 0.1f;
     }
     
 }

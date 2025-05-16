@@ -25,7 +25,7 @@ public class LevelSystem : MonoBehaviour
         levelText.text = "Level " + level;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         UpdateXpUI();
