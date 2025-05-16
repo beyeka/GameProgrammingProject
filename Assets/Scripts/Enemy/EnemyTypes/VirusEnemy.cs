@@ -2,50 +2,33 @@ using UnityEngine;
 
 public class VirusEnemy : EnemyBase
 {
-    [SerializeField] private float virusSpeed = 8f;
-    [SerializeField] private int virusDamage = 25;
+    private VirusEnemySO VirusData => (VirusEnemySO)GetData(); 
 
     protected override void Start()
     {
-        
-        maxHealth = 30f;
-        damage = virusDamage;
-        attackCooldown = Mathf.Infinity; 
-        
         base.Start();
-        
-        
-       
+
         if (agent != null)
-        {
-            agent.speed = virusSpeed;
-            
-        }
+            agent.speed = VirusData.overrideMoveSpeed;
     }
 
-   
     public override void DealDamage(GameObject target)
     {
-       target.GetComponent<PlayerHealth>()?.TakeDamage(virusDamage);
-
-        
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("I HIT THE ENEMY");
-        
-        if (isDead) return;
-        
-        if (other.CompareTag("Player"))
+        if (target.TryGetComponent(out PlayerHealth playerHealth))
         {
-            DealDamage(other.gameObject);
-            Die(); 
+            playerHealth.TakeDamage(VirusData.damage); 
         }
     }
 
-    
-   
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isDead) return;
 
-    
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Virus collided with player, exploding!");
+            DealDamage(other.gameObject);
+            Die();
+        }
+    }
 }

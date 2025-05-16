@@ -2,25 +2,21 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public abstract class EnemyBase : MonoBehaviour 
+public abstract class EnemyBase : MonoBehaviour
 {
-    [Header("Stats")]
-    [SerializeField] protected float maxHealth = 100f;
-    [SerializeField] protected float damage = 10f;
-    [SerializeField] protected float attackRange = 1.5f;
-    [SerializeField] protected float attackCooldown = 1f;
-    [SerializeField] protected float expValue = 15;
+    [Header("Config")]
+    [SerializeField] private EnemyDataSO enemyData;
+
     protected float currentHealth;
     protected NavMeshAgent agent;
     protected Transform playerTransform;
-
     protected bool isDead = false;
     private float lastAttackTime = 0f;
-    
 
+    
     protected virtual void Start()
     {
-        currentHealth = maxHealth;
+        currentHealth = enemyData.maxHealth;
         agent = GetComponent<NavMeshAgent>();
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -34,7 +30,6 @@ public abstract class EnemyBase : MonoBehaviour
 
         Move();
         HandleAttack();
-        
     }
 
     protected virtual void Move()
@@ -45,25 +40,30 @@ public abstract class EnemyBase : MonoBehaviour
         }
     }
 
-    protected virtual void HandleAttack(){
-    
+    protected virtual void HandleAttack()
+    {
         float distance = Vector3.Distance(transform.position, playerTransform.position);
-        if (distance <= attackRange)
+
+        if (distance <= enemyData.attackRange)
         {
-            
-            Attack();
+            if (Time.time >= lastAttackTime + enemyData.attackCooldown)
+            {
+                lastAttackTime = Time.time;
+                Attack();
+            }
         }
     }
 
     public virtual void Attack()
     {
         
-        
     }
+
     public virtual void DealDamage(GameObject target)
     {
         
     }
+
     public virtual void TakeDamage(float amount)
     {
         if (isDead) return;
@@ -74,19 +74,17 @@ public abstract class EnemyBase : MonoBehaviour
             Die();
         }
     }
-    
 
     public virtual void Die()
     {
         isDead = true;
         agent.isStopped = true;
 
-        GiveExp(expValue);
+        GiveExp(enemyData.experienceReward);
 
-        // optionally play death anim, destroy gameObject, etc.
+        
         Destroy(gameObject);
     }
-
 
     public virtual void GiveExp(float xpValue)
     {
@@ -95,8 +93,9 @@ public abstract class EnemyBase : MonoBehaviour
         LevelSystem levelSystem = playerTransform.GetComponent<LevelSystem>();
         if (levelSystem != null)
         {
-            levelSystem.GainExperienceFlatRate(expValue);
+            levelSystem.GainExperienceFlatRate(xpValue);
         }
     }
 
+    public EnemyDataSO GetData() => enemyData; 
 }
