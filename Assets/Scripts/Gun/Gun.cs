@@ -23,11 +23,12 @@ public class Gun : MonoBehaviour
     void Start()
     {
         currentAmmo = magazine;
-        ammoText.text = currentAmmo + "/" + magazine; 
+        AmmoPrinter(magazine);
     }
 
     void OnEnable()
     {
+        AmmoPrinter(currentAmmo);
         isReload = false;
         animator.SetBool("Reloading",false);
     }
@@ -40,7 +41,7 @@ public class Gun : MonoBehaviour
         }
         if (currentAmmo <= 0)
         {
-            
+            AmmoPrinter(0);
             StartCoroutine(Reload());
             return;
         }
@@ -74,9 +75,14 @@ public class Gun : MonoBehaviour
              Destroy(destroyEffect,0.3f);
          }
 
-         ammoText.text = currentAmmo + "/" + magazine; 
+         AmmoPrinter(currentAmmo);
      }
 
+
+     public void AmmoPrinter(int currentAmmo)
+     {
+         ammoText.text = currentAmmo + "/" + magazine; 
+     }
      IEnumerator Reload()
      {
          isReload = true;
@@ -88,6 +94,7 @@ public class Gun : MonoBehaviour
          
          currentAmmo = magazine;
          isReload = false;
+         
      }
     
      public void ApplyFireRateBoost(float multiplier, float duration)

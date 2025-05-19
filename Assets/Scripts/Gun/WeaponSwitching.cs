@@ -20,6 +20,7 @@ public class WeaponSwitching : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             selectedWeapon = 0;
+            
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -42,10 +43,12 @@ public class WeaponSwitching : MonoBehaviour
             if (weaponNumber == selectedWeapon)
             {
                 weapon.gameObject.SetActive(true);
+                
             }
             else
             {
                 weapon.gameObject.SetActive(false);
+                
             }
 
             weaponNumber++;

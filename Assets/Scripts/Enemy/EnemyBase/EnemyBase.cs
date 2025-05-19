@@ -5,14 +5,15 @@ using UnityEngine.AI;
 public abstract class EnemyBase : MonoBehaviour
 {
     [Header("Config")]
-    [SerializeField] private EnemyDataSO enemyData;
+    [SerializeField] protected EnemyDataSO enemyData;
 
     protected float currentHealth;
     protected NavMeshAgent agent;
     protected Transform playerTransform;
     protected bool isDead = false;
-    private float lastAttackTime = 0f;
-
+    protected float lastAttackTime = 0f;
+    protected float attackRange;
+    protected float attackCooldown;
     
     protected virtual void Start()
     {
