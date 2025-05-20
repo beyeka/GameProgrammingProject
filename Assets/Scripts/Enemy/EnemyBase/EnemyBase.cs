@@ -2,11 +2,12 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public abstract class EnemyBase : MonoBehaviour
+public abstract class EnemyBase : MonoBehaviour ,IPoolable
 {
     [Header("Config")]
     [SerializeField] protected EnemyDataSO enemyData;
-
+    [SerializeField] private GameObject pooledPrefabReference;
+    
     protected float currentHealth;
     protected NavMeshAgent agent;
     protected Transform playerTransform;
@@ -75,18 +76,6 @@ public abstract class EnemyBase : MonoBehaviour
             Die();
         }
     }
-
-    public virtual void Die()
-    {
-        isDead = true;
-        agent.isStopped = true;
-
-        GiveExp(enemyData.experienceReward);
-
-        
-        Destroy(gameObject);
-    }
-
     public virtual void GiveExp(float xpValue)
     {
         if (playerTransform == null) return;
@@ -97,6 +86,27 @@ public abstract class EnemyBase : MonoBehaviour
             levelSystem.GainExperienceFlatRate(xpValue);
         }
     }
+    public virtual void OnSpawn()
+    {
+        isDead = false;
+        gameObject.SetActive(true);
+        // Reset health, states, etc.
+    }
 
+    public virtual void OnDespawn()
+    {
+        // optional cleanup
+    }
+
+    public virtual void Die()
+    {
+        isDead = true;
+        agent.isStopped = true;
+
+        GiveExp(enemyData.experienceReward);
+
+
+        EnemyPoolManager.Instance.Despawn(gameObject, pooledPrefabReference);
+    }
     public EnemyDataSO GetData() => enemyData; 
 }
