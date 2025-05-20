@@ -7,7 +7,7 @@ public class RangedEnemy : EnemyBase
     private RangedEnemySO RangedData => (RangedEnemySO)GetData(); 
     
     protected override void HandleAttack()
-    {
+    { 
         float distance = Vector3.Distance(transform.position, playerTransform.position);
     
         if (distance <= RangedData.attackRange && Time.time >= lastAttackTime + RangedData.attackCooldown)
