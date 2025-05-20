@@ -9,7 +9,7 @@ public class PowerUpPickup : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         powerUpData.Apply(other.gameObject);
-        Destroy(gameObject); // Or pool later
+        Destroy(gameObject); 
     }
     public void SetPowerUp(PowerUpBaseSO newPowerUp)
     {
