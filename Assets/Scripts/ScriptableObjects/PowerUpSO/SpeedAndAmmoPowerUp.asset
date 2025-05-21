@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpName: SpeedAmmo
   duration: 5
-  moveSpeedMultiplier: 1.5
-  fireRateMultiplier: 1.5
+  moveSpeedMultiplier: 2
+  fireRateMultiplier: 2

@@ -8,7 +8,7 @@ public class SpeedPowerUpSO : PowerUpBaseSO
     public override void Apply(GameObject player)
     {
         var move = player.GetComponent<PlayerMovement>();
-        var weapon = player.GetComponent<Gun>();
+        var weapon = player.GetComponentInChildren<Gun>();
 
         move?.ApplySpeedBoost(moveSpeedMultiplier, duration);
         weapon?.ApplyFireRateBoost(fireRateMultiplier, duration);

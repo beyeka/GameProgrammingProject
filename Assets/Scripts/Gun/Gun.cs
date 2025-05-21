@@ -39,7 +39,7 @@ public class Gun : MonoBehaviour
         {
             return;
         }
-        if (currentAmmo <= 0|| Input.GetKeyDown("R"))
+        if (currentAmmo <= 0|| Input.GetKeyDown(KeyCode.R))
         {
             AmmoPrinter(0);
             StartCoroutine(Reload());
@@ -94,7 +94,7 @@ public class Gun : MonoBehaviour
          
          currentAmmo = magazine;
          isReload = false;
-         
+         ammoText.text = currentAmmo + "/" + magazine;
      }
     
      public void ApplyFireRateBoost(float multiplier, float duration)
