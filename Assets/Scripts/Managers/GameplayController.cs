@@ -4,11 +4,24 @@ using UnityEngine;
 
 public class GameplayController : MonoBehaviour
 {
-    [SerializeField] private LevelManager levelManager;
+    [SerializeField] public LevelManager levelManager;
+
+    [SerializeField] private ParticleSystem deadPS;
+
+    private List<ParticleSystem> _deadPSList;
 
     public void Initialize()
     {
+        _deadPSList = new List<ParticleSystem>();
+
         levelManager.Initialize();
+    }
+
+    public void PlayEnemyDeadPS(Vector3 position)
+    {
+        var newPs = Instantiate(deadPS, transform);
+        newPs.transform.position = position;
+        newPs.Play();
     }
 
     public void GiveExp(float expValue)

@@ -25,7 +25,7 @@ public abstract class EnemyBase : MonoBehaviour, IPoolable
             playerTransform = player.transform;
     }
 
-    protected virtual void Update()
+    public virtual void Update()
     {
         if (isDead || playerTransform == null) return;
 
@@ -104,6 +104,8 @@ public abstract class EnemyBase : MonoBehaviour, IPoolable
         isDead = true;
         agent.isStopped = true;
 
+        GameManager.Instance.gameplayController.PlayEnemyDeadPS(transform.position);
+        
         GameManager.Instance.gameplayController.GiveExp(enemyData.experienceReward);
 
         EnemyPoolManager.Instance.Despawn(gameObject, pooledPrefabReference);

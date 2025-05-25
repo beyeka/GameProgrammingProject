@@ -115,14 +115,14 @@ public class SoundManager : MonoBehaviour
     public void PlayMainMenuMusic()
     {
         StopAllMusics();
-        
+
         menuMusicAudioSource.Play();
     }
 
     public void PlayGameplayMusic()
     {
         StopAllMusics();
-        
+
         gameplayMusicAudioSource.Play();
     }
 
@@ -130,7 +130,7 @@ public class SoundManager : MonoBehaviour
     {
         // TODO : Call when boss comes
         StopAllMusics();
-        
+
         bossMusicAudioSource.Play();
     }
 
@@ -145,6 +145,7 @@ public class SoundManager : MonoBehaviour
         bossMusicAudioSource.Stop();
         menuMusicAudioSource.Stop();
     }
+
     private void OnDestroy()
     {
         Instance = null;

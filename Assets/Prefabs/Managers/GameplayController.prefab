@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelManager: {fileID: 7682449485982419500}
+  deadPS: {fileID: 9089541598907984273, guid: 24283489545204b7d92c74288a3c765a, type: 3}
 --- !u!1001 &6695421723181234813
 PrefabInstance:
   m_ObjectHideFlags: 0
