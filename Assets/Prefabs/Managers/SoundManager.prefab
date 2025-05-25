@@ -42,7 +42,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 73283e1a341f74bf9bccd442449cbd21, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 517dbd5357d36724c9ff71219172b9f6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -170,7 +170,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: bd03f854b6e8d493bb8fcbf8d13e8522, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 6d2e2db0b97a8c84e9b7aba22496d5fe, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -311,6 +311,7 @@ MonoBehaviour:
   soundDatabase: {fileID: 11400000, guid: 0992b6b4a2c124228818826d7aac733f, type: 2}
   isSfxOn: 0
   isMusicOn: 0
+  defaultMusicVolume: 0.2
 --- !u!81 &3261034260210784648
 AudioListener:
   m_ObjectHideFlags: 0

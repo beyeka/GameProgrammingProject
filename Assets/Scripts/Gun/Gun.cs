@@ -23,26 +23,34 @@ public class Gun : MonoBehaviour
     public ParticleSystem muzzleFlash;
     public GameObject impactEffect;
 
-    private bool _isActive;
+    private bool _isInitialized;
 
-    void OnEnable()
+    private bool _isActive;
+    
+    private void Initialize()
     {
-        AmmoPrinter();
         isReload = false;
         animator.SetBool("Reloading", false);
+        currentAmmo = magazine;
+
+        _isInitialized = true;
     }
 
-    public void StartGameplay()
+    public void Activate()
     {
-        currentAmmo = magazine;
+        if (!_isInitialized)
+            Initialize();
+
         AmmoPrinter();
 
         _isActive = true;
     }
 
-    public void FinishGameplay()
+    public void Deactivate()
     {
         _isActive = false;
+        
+        StopCoroutine(Reload());
     }
 
     public void CustomUpdate()

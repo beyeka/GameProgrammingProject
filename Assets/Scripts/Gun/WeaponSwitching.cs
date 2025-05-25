@@ -1,58 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class WeaponSwitching : MonoBehaviour
 {
+    private Gun _selectedGun;
 
-    public int selectedWeapon = 0;
-    
-    void Start()
-    {
-        SelectWeapon();
-        
-    }
+    [SerializeField] private List<Gun> guns;
 
-    // Update is called once per frame
-    void Update()
+    private bool _isActive;
+
+    public void Update()
     {
-        int previousWeapon = selectedWeapon;
+        if (!_isActive)
+            return;
+
+        var previousGun = _selectedGun;
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            selectedWeapon = 0;
-            
+            _selectedGun = guns[0];
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            selectedWeapon = 1;
+            _selectedGun = guns[1];
         }
 
-        if (previousWeapon != selectedWeapon)
+        if (previousGun != _selectedGun)
         {
-            SelectWeapon();
+            previousGun.Deactivate();
+            previousGun.gameObject.SetActive(false);
+
+            _selectedGun.Activate();
+            _selectedGun.gameObject.SetActive(true);
         }
     }
 
-    void SelectWeapon()
+    public void StartGameplay()
     {
-        int weaponNumber = 0;
+        _selectedGun = guns[0];
+        _selectedGun.Activate();
+        _selectedGun.gameObject.SetActive(true);
 
-        foreach (Transform weapon in transform)
-        {
-            if (weaponNumber == selectedWeapon)
-            {
-                weapon.gameObject.SetActive(true);
-                
-            }
-            else
-            {
-                weapon.gameObject.SetActive(false);
-                
-            }
+        _isActive = true;
+    }
 
-            weaponNumber++;
-        }
-        
+    public void FinishGameplay()
+    {
+        _isActive = false;
     }
 }
