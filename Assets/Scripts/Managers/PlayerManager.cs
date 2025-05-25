@@ -61,6 +61,7 @@ public class PlayerManager : MonoBehaviour
 
     private void OnPlayerDied()
     {
+        SoundManager.Instance.PlaySound(SFXKeys.PlayerDeath);
         GameManager.Instance.FinishGameplay(false);
     }
 

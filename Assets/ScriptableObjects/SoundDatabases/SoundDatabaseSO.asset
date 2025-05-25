@@ -21,3 +21,7 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 86060cedc496c4d9995e4ea5ca51fd6d, type: 3}
   - sfxKey: 3
     audioClip: {fileID: 8300000, guid: fbe9a6e8160f648dd8824945c3313006, type: 3}
+  - sfxKey: 4
+    audioClip: {fileID: 8300000, guid: a37f44cbf8c2a7443a3c361efa2f233a, type: 3}
+  - sfxKey: 5
+    audioClip: {fileID: 8300000, guid: ac6034ade498bb94b87620cdf6eac48b, type: 3}

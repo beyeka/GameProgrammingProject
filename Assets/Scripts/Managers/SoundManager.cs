@@ -164,4 +164,6 @@ public enum SFXKeys
     PowerUp_PickUp,
     Riffle_Shoot,
     HeavyShoot,
+    EnemyDeath,
+    PlayerDeath,
 }

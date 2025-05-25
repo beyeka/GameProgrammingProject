@@ -99,6 +99,8 @@ public abstract class EnemyBase : MonoBehaviour, IPoolable
 
     public virtual void Die()
     {
+        SoundManager.Instance.PlaySound(SFXKeys.EnemyDeath);
+        
         isDead = true;
         agent.isStopped = true;
 

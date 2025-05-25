@@ -26,7 +26,7 @@ public class Gun : MonoBehaviour
     private bool _isInitialized;
 
     private bool _isActive;
-    
+
     private void Initialize()
     {
         isReload = false;
@@ -49,8 +49,11 @@ public class Gun : MonoBehaviour
     public void Deactivate()
     {
         _isActive = false;
-        
+
         StopCoroutine(Reload());
+        animator.SetBool("Reloading", false);
+        
+        isReload = false;
     }
 
     public void CustomUpdate()
@@ -165,10 +168,4 @@ public class Gun : MonoBehaviour
     {
         SoundManager.Instance.PlaySound(sfxKeys);
     }
-}
-
-public enum GunType
-{
-    Riffle,
-    Heavy
 }
