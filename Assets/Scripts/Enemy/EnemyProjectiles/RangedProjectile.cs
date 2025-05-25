@@ -6,6 +6,7 @@ public class RangedProjectile : MonoBehaviour
 {
     private float damage;
     [SerializeField] private float lifeTime = 5f;
+    [SerializeField] private Rigidbody rb; 
 
     public void SetDamage(float dmg)
     {
@@ -28,5 +29,10 @@ public class RangedProjectile : MonoBehaviour
             Destroy(gameObject);
         }
         
+    }
+
+    public Rigidbody GetRigidbody()
+    {
+        return rb;
     }
 }

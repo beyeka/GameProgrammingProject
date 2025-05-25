@@ -8,6 +8,8 @@ public class PowerUpPickup : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
+        SoundManager.Instance.PlaySound(SFXKeys.PowerUp_PickUp);
+        
         powerUpData.Apply(other.gameObject);
         Destroy(gameObject); 
     }

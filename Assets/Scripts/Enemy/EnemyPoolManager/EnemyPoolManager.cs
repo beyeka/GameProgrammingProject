@@ -24,19 +24,19 @@ public class EnemyPoolManager : MonoBehaviour
             var queue = new Queue<GameObject>();
             for (int i = 0; i < pool.initialSize; i++)
             {
-                GameObject obj = Instantiate(pool.prefab);
+                GameObject obj = Instantiate(pool.prefab, transform);
                 obj.SetActive(false);
                 queue.Enqueue(obj);
             }
+
             poolDictionary[pool.prefab] = queue;
         }
     }
 
     public GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation)
     {
-       
         var queue = poolDictionary[prefab];
-        GameObject obj = (queue.Count > 0) ? queue.Dequeue() : Instantiate(prefab);
+        GameObject obj = (queue.Count > 0) ? queue.Dequeue() : Instantiate(prefab, transform);
         obj.transform.SetPositionAndRotation(position, rotation);
         obj.SetActive(true);
 

@@ -2,12 +2,11 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public abstract class EnemyBase : MonoBehaviour ,IPoolable
+public abstract class EnemyBase : MonoBehaviour, IPoolable
 {
-    [Header("Config")]
-    [SerializeField] protected EnemyDataSO enemyData;
+    [Header("Config")] [SerializeField] protected EnemyDataSO enemyData;
     [SerializeField] private GameObject pooledPrefabReference;
-    
+
     protected float currentHealth;
     protected NavMeshAgent agent;
     protected Transform playerTransform;
@@ -15,7 +14,7 @@ public abstract class EnemyBase : MonoBehaviour ,IPoolable
     protected float lastAttackTime = 0f;
     protected float attackRange;
     protected float attackCooldown;
-    
+
     protected virtual void Start()
     {
         currentHealth = enemyData.maxHealth;
@@ -58,12 +57,10 @@ public abstract class EnemyBase : MonoBehaviour ,IPoolable
 
     public virtual void Attack()
     {
-        
     }
 
     public virtual void DealDamage(GameObject target)
     {
-        
     }
 
     public virtual void TakeDamage(float amount)
@@ -76,6 +73,7 @@ public abstract class EnemyBase : MonoBehaviour ,IPoolable
             Die();
         }
     }
+
     public virtual void GiveExp(float xpValue)
     {
         if (playerTransform == null) return;
@@ -86,6 +84,7 @@ public abstract class EnemyBase : MonoBehaviour ,IPoolable
             levelSystem.GainExperienceFlatRate(xpValue);
         }
     }
+
     public virtual void OnSpawn()
     {
         isDead = false;
@@ -103,10 +102,10 @@ public abstract class EnemyBase : MonoBehaviour ,IPoolable
         isDead = true;
         agent.isStopped = true;
 
-        GiveExp(enemyData.experienceReward);
-
+        GameManager.Instance.gameplayController.GiveExp(enemyData.experienceReward);
 
         EnemyPoolManager.Instance.Despawn(gameObject, pooledPrefabReference);
     }
-    public EnemyDataSO GetData() => enemyData; 
+
+    public EnemyDataSO GetData() => enemyData;
 }

@@ -5,12 +5,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private WaveDataSO waveData;
     [SerializeField] private Transform[] spawnPoints;
-
-    public void Start()
-    {
-        StartCoroutine(SpawnWave());
-    }
-
+    
     private IEnumerator SpawnWave()
     {
         foreach (var spawnSet in waveData.spawnSets)
@@ -39,5 +34,15 @@ public class EnemySpawner : MonoBehaviour
                 yield return new WaitForSeconds(enemyData.spawnDelay);
             }
         }
+    }
+
+    public void StartGameplay()
+    {
+        StartCoroutine(SpawnWave());
+    }
+
+    public void FinishGameplay()
+    {
+        StopCoroutine(SpawnWave());
     }
 }

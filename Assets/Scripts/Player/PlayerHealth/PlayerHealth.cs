@@ -6,22 +6,25 @@ using UnityEngine.UI;
 using TMPro;
 
 public class PlayerHealth : MonoBehaviour
-{   
-    [SerializeField]private float health;
+{
+    [SerializeField] private float health;
     private float lerpTimer;
     public float maxHealth;
-    public float chipSpeed =2f;
-    public Image frontHealthBar;
-    public Image backHealthBar;
-    public TextMeshProUGUI healthText;
-        
-    private void Start()
-    {
-        health = maxHealth;
-    }
+    public float chipSpeed = 2f;
 
-     void Update()
+    private Image frontHealthBar;
+    private Image backHealthBar;
+    private TextMeshProUGUI healthText;
+
+    public event Action PlayerDied;
+
+    private bool _isActive;
+
+    public void CustomUpdate()
     {
+        if (!_isActive)
+            return;
+
         health = Mathf.Clamp(health, 0, maxHealth);
         UpdateHealthUI();
 
@@ -29,6 +32,7 @@ public class PlayerHealth : MonoBehaviour
         {
             TakeDamage(25);
         }
+
         if (Input.GetKeyDown(KeyCode.K))
         {
             RestoreHealth(25);
@@ -40,7 +44,7 @@ public class PlayerHealth : MonoBehaviour
         float fillFront = frontHealthBar.fillAmount;
         float fillBack = backHealthBar.fillAmount;
         float hFraction = health / maxHealth;
-        if (fillBack>hFraction)
+        if (fillBack > hFraction)
         {
             frontHealthBar.fillAmount = hFraction;
             backHealthBar.color = Color.red;
@@ -60,14 +64,17 @@ public class PlayerHealth : MonoBehaviour
             frontHealthBar.fillAmount = Mathf.Lerp(fillFront, backHealthBar.fillAmount, percentComplete);
         }
 
-        healthText.text = Mathf.Round(health) + "/" + Mathf.Round(maxHealth);   
+        healthText.text = Mathf.Round(health) + "/" + Mathf.Round(maxHealth);
     }
 
     public void TakeDamage(float amount)
     {
+        if(GameManager.IsGodModeActive)
+            return;
+        
         health -= amount;
         lerpTimer = 0f;
-        if (health == 0)
+        if (health <= 0)
         {
             Die();
         }
@@ -77,19 +84,37 @@ public class PlayerHealth : MonoBehaviour
     {
         health = Mathf.Min(health + healAmount, maxHealth);
         lerpTimer = 0f;
-        
     }
+
     public void Die()
     {
-        
-        
+        PlayerDied?.Invoke();
     }
 
     public void IncreaseHealth()
     {
-        
         maxHealth += maxHealth * 0.1f;
         health += maxHealth * 0.1f;
     }
-    
+
+    public void StartGameplay()
+    {
+        ResetHp();
+
+        frontHealthBar = UIManager.Instance.gameplayUI.frontHealthBar;
+        backHealthBar = UIManager.Instance.gameplayUI.backHealthBar;
+        healthText = UIManager.Instance.gameplayUI.healthText;
+
+        _isActive = true;
+    }
+
+    public void FinishGameplay()
+    {
+        _isActive = false;
+    }
+
+    private void ResetHp()
+    {
+        health = maxHealth;
+    }
 }

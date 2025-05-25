@@ -551,6 +551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6545a8e0f90f8ee4fbcf9afe4fff14d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxKeys: 2
   damage: 15
   range: 100
   fireRate: 4.5

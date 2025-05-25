@@ -5,25 +5,30 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController CharacterController;
-    
+
     public float movementSpeed = 50f;
     public float gravity = -9.8f;
     public float jumpHeight = 2f;
-    
+
     public Transform groundChecker;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
     private bool isGround;
     private Vector3 velocity;
-    void Update()
+
+    private bool _isActive;
+
+    public void CustomUpdate()
     {
+        if (!_isActive)
+            return;
+
         GetMovementInputs();
         AddGravity();
         IsGroundedCheck();
         Jump();
     }
-
 
     private void GetMovementInputs()
     {
@@ -31,12 +36,12 @@ public class PlayerMovement : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         Vector3 movementDirection = (transform.right * x) + (transform.forward * z);
-        CharacterController.Move(movementDirection * movementSpeed * Time.deltaTime);
+        CharacterController.Move(movementDirection * (Time.deltaTime * movementSpeed));
     }
-    
+
     private void AddGravity()
     {
-        velocity.y += gravity*Time.deltaTime;
+        velocity.y += gravity * Time.deltaTime;
         CharacterController.Move(velocity * Time.deltaTime);
     }
 
@@ -55,9 +60,9 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") & isGround)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }    
+        }
     }
-    
+
     public void ApplySpeedBoost(float multiplier, float duration)
     {
         StartCoroutine(SpeedBoostRoutine(multiplier, duration));
@@ -69,7 +74,15 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(duration);
         movementSpeed /= multiplier;
     }
-    
-    
-    
+
+
+    public void StartGameplay()
+    {
+        _isActive = true;
+    }
+
+    public void FinishGameplay()
+    {
+        _isActive = false;
+    }
 }

@@ -10,18 +10,19 @@ GameObject:
   m_Component:
   - component: {fileID: 1493026300880597364}
   - component: {fileID: 4956566295938753983}
+  - component: {fileID: 9175759854071169294}
   - component: {fileID: 3001866328352163797}
   - component: {fileID: 7670429009035489767}
+  - component: {fileID: 8086207867755560400}
   - component: {fileID: 2954942184750790424}
   - component: {fileID: 3015553168272707380}
-  - component: {fileID: 2092849947377202366}
   m_Layer: 7
   m_Name: PlayerHolder
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1493026300880597364
 Transform:
   m_ObjectHideFlags: 0
@@ -65,6 +66,24 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.65, z: 0}
+--- !u!114 &9175759854071169294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3231639711450992553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12818464e446404d86501a5df344357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 3001866328352163797}
+  playerHealth: {fileID: 7670429009035489767}
+  mouseLooking: {fileID: 8086207867755560400}
+  guns:
+  - {fileID: 2051525402593880455}
+  - {fileID: 9186358747274555220}
 --- !u!114 &3001866328352163797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,9 +120,20 @@ MonoBehaviour:
   health: 0
   maxHealth: 100
   chipSpeed: 2
-  frontHealthBar: {fileID: 0}
-  backHealthBar: {fileID: 0}
-  healthText: {fileID: 0}
+--- !u!114 &8086207867755560400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3231639711450992553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3a7147daabda5a4ea80eb6548c74f64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseSensitivity: 1250
+  cameraTransform: {fileID: 5107304621839216408}
 --- !u!136 &2954942184750790424
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -154,25 +184,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2092849947377202366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3231639711450992553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55d8b35574cd8444ab1d88364c031536, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  level: 1
-  currentXp: 0
-  requiredXp: 100
-  frontXpBar: {fileID: 0}
-  backXpBar: {fileID: 0}
-  levelText: {fileID: 0}
-  xpText: {fileID: 0}
 --- !u!1 &3427138543849050738
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,8 +225,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5107304621839216408}
   - component: {fileID: 1170722851456350554}
-  - component: {fileID: 5408666410930360359}
-  - component: {fileID: 3292237397226089149}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -278,7 +287,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 215
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -290,28 +299,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &5408666410930360359
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3713894371615266155}
-  m_Enabled: 1
---- !u!114 &3292237397226089149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3713894371615266155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3a7147daabda5a4ea80eb6548c74f64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mouseSensitivity: 250
-  playerBody: {fileID: 1493026300880597364}
 --- !u!1 &8205170430226890620
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,6 +438,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3018399257161507119, guid: 92cd5dbd9f5c9d04d82ab72329b3786e, type: 3}
   m_PrefabInstance: {fileID: 6861218412004733451}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9186358747274555220 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2327078224828521823, guid: 92cd5dbd9f5c9d04d82ab72329b3786e, type: 3}
+  m_PrefabInstance: {fileID: 6861218412004733451}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6545a8e0f90f8ee4fbcf9afe4fff14d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8989836660771611320
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -516,6 +514,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc4a410c7b8853443b2bdb0a87a47333, type: 3}
+--- !u!114 &2051525402593880455 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6969931390630431551, guid: bc4a410c7b8853443b2bdb0a87a47333, type: 3}
+  m_PrefabInstance: {fileID: 8989836660771611320}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6545a8e0f90f8ee4fbcf9afe4fff14d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6805483584189041203 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2500552857716287627, guid: bc4a410c7b8853443b2bdb0a87a47333, type: 3}

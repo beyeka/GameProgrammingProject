@@ -26,7 +26,7 @@ public class VirusEnemy : EnemyBase
 
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Virus collided with player, exploding!");
+            // Debug.Log("Virus collided with player, exploding!");
             DealDamage(other.gameObject);
             Die();
         }

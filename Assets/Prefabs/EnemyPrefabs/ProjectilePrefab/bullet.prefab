@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 5
+  rb: {fileID: -3297345945144897873}
 --- !u!54 &-3297345945144897873
 Rigidbody:
   m_ObjectHideFlags: 0

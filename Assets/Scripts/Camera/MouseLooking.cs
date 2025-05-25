@@ -10,21 +10,31 @@ public class MouseLooking : MonoBehaviour
 {
     public float mouseSensitivity;
 
-    public Transform playerBody;
+    public Transform cameraTransform;
     private float xRotation = 0f;
-   
-     void Start()
-     {
-         SetSensitivity();
-         Cursor.lockState = CursorLockMode.Locked;
-     }
 
-    void Update()
+    private bool _isActive;
+
+
+    public void StartGameplay()
     {
-        SetMovementInputs();
-
+        _isActive = true;
+        
+        SetSensitivity();
     }
 
+    public void FinishGameplay()
+    {
+        _isActive = false;
+    }
+
+    public void CustomUpdate()
+    {
+        if(!_isActive)
+            return;
+        
+        SetMovementInputs();
+    }
 
     private void SetSensitivity()
     {
@@ -33,18 +43,16 @@ public class MouseLooking : MonoBehaviour
             mouseSensitivity = 200f;
         }
     }
+
     private void SetMovementInputs()
     {
-        float mouseX = Input.GetAxis("Mouse X")*mouseSensitivity*Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y")*mouseSensitivity*Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -65f, 65f);
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        playerBody.Rotate(Vector3.up*mouseX);
+        cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        transform.Rotate(Vector3.up * mouseX);
     }
-
-    
-    
 }
