@@ -19,6 +19,6 @@ MonoBehaviour:
   attackRange: 30
   attackCooldown: 4
   experienceReward: 25
-  projectilePrefab: {fileID: 5412789239619657338, guid: 0f70c815b20dc2849a7be89916c0076e, type: 3}
+  projectilePrefab: {fileID: 5829272532576545513, guid: 7ba892263bec55a45b3073eb74e7dc9a, type: 3}
   projectileSpeed: 25
   projectileDamage: 15
