@@ -14,6 +14,7 @@ public abstract class EnemyBase : MonoBehaviour, IPoolable
     protected float lastAttackTime = 0f;
     protected float attackRange;
     protected float attackCooldown;
+    public bool IsDead => isDead;
 
     protected virtual void Start()
     {
@@ -95,6 +96,12 @@ public abstract class EnemyBase : MonoBehaviour, IPoolable
     public virtual void OnDespawn()
     {
         // optional cleanup
+    }
+    public virtual void Heal(float amount)
+    {
+        if (isDead) return;
+
+        currentHealth = Mathf.Min(currentHealth + amount, enemyData.maxHealth);
     }
 
     public virtual void Die()

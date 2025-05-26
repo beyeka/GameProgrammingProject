@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3545122698641682079}
   - component: {fileID: 7224980209785619410}
   - component: {fileID: 475166063733650846}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: VirusGreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 00476122118138a4cb243c6247de2c0f, type: 2}
   pooledPrefabReference: {fileID: 369459751750709860}
-  deadPS: {fileID: 0}
   sinWaveModel: {fileID: 5314651437758875745}
   amplitude: 0.01
   frequency: 5
