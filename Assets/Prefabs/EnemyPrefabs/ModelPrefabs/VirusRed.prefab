@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3766135936710998132}
   m_Layer: 0
-  m_Name: Mesh
+  m_Name: Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 4422485346558298492}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0.5, z: 0}
   m_LocalScale: {x: 15, y: 15, z: 15}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -42,8 +42,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8590233207883274307}
   - component: {fileID: 1626210524456039292}
-  - component: {fileID: 7087556404704896375}
   - component: {fileID: 4528478819211151370}
+  - component: {fileID: 7087556404704896375}
   m_Layer: 0
   m_Name: VirusRed
   m_TagString: Untagged
@@ -60,7 +60,7 @@ Transform:
   m_GameObject: {fileID: 7094057354121631538}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -89,6 +89,24 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4528478819211151370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7094057354121631538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9fbef2cc770a9841900c763dba7b5b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyData: {fileID: 11400000, guid: b71ddecfb2e14504dbac169c5d67c0a2, type: 2}
+  pooledPrefabReference: {fileID: 7094057354121631538}
+  sinWaveModel: {fileID: 8613459339663105919}
+  amplitude: 0.01
+  frequency: 5
+  offsetY: 0
 --- !u!135 &7087556404704896375
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -109,21 +127,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.3390378
-  m_Center: {x: 0, y: 0.06101051, z: 0.0123974085}
---- !u!114 &4528478819211151370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7094057354121631538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9fbef2cc770a9841900c763dba7b5b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: b71ddecfb2e14504dbac169c5d67c0a2, type: 2}
-  pooledPrefabReference: {fileID: 7094057354121631538}
+  m_Center: {x: 0, y: 0.51, z: 0.0123974085}
 --- !u!1 &8716169369033120279
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,9 +139,8 @@ GameObject:
   - component: {fileID: 8613459339663105919}
   - component: {fileID: 7760738114418286065}
   - component: {fileID: 6248202921617602301}
-  - component: {fileID: 2100884709133812419}
   m_Layer: 0
-  m_Name: Viruse_1
+  m_Name: VirusRed_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -208,25 +211,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2100884709133812419
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8716169369033120279}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2381238399993666857, guid: ba197811aa07dd446ae2c854bcfb6a69, type: 3}

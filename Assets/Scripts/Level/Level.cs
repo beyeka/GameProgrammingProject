@@ -9,13 +9,14 @@ public class Level : MonoBehaviour
     public EnemySpawner enemySpawner;
     public PowerUpManager powerUpManager;
     public RainScript rainScript;
-
+    public BossSpawner bossSpawner;
     public void StartGameplay()
     {
         enemySpawner.StartGameplay();
+        bossSpawner.StartGameplay();
         powerUpManager.StartGameplay();
         playerManager.StartGameplay();
-
+        
         var isMusicOn = SoundManager.Instance.isMusicOn;
 
         if (isMusicOn)
@@ -29,5 +30,6 @@ public class Level : MonoBehaviour
         enemySpawner.FinishGameplay();
         powerUpManager.FinishGameplay();
         playerManager.FinishGameplay();
+        bossSpawner.FinishGameplay();
     }
 }

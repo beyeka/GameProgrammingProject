@@ -28,10 +28,7 @@ public class RangedProjectile : MonoBehaviour
 
             Destroy(gameObject);
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+        
     }
 
     public Rigidbody GetRigidbody()

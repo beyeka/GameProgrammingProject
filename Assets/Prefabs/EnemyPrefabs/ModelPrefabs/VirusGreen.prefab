@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 8017308863811716737}
   - component: {fileID: 6948999695936729611}
   m_Layer: 0
-  m_Name: Viruse_1
+  m_Name: VirusGreen_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
