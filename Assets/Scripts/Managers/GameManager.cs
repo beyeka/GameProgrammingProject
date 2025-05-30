@@ -1,3 +1,4 @@
+// Singleton GameManager controlling game state, scene-level systems, and gameplay flow (start, finish, quit, etc.)
 using System;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    // [SerializeField] private PLayerma FieldName; 
+     
     [SerializeField] private SoundManager soundManager;
     public GameplayController gameplayController;
 
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     public event Action<bool> GameplayFinished;
 
 
+    // Initializes managers, plays menu music, sets initial game state.
     private void Start()
     {
         Instance = this;
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
         ChangeGameState(GameState.MainMenu);
     }
 
+    // Temporary debug shortcut to finish gameplay with 'K' key.
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.K))
@@ -35,12 +38,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Calls initialization methods on sound and gameplay controllers.
     private void InitializeManagers()
     {
         soundManager.Initialize();
         gameplayController.Initialize();
     }
 
+    // Starts gameplay for a given level, changes state, sets cursor mode, and starts music.
     public void StartGameplay(int levelIndex)
     {
         gameplayController.StartGameplay(levelIndex);
@@ -51,7 +56,7 @@ public class GameManager : MonoBehaviour
         SoundManager.Instance.PlayGameplayMusic();
     }
 
-    // From success and fail popup
+    // Freezes game, sets cursor for UI, stops music, finishes gameplay controller, triggers event.
     public void FinishGameplay(bool isSuccess)
     {
         SetTimeScale(0);
@@ -65,6 +70,7 @@ public class GameManager : MonoBehaviour
         GameplayFinished?.Invoke(isSuccess);
     }
 
+    // Ends gameplay, resets timescale, changes state back to main menu, restarts music.
     public void EndTheGameplayCompletely()
     {
         SoundManager.Instance.PlayMainMenuMusic();
@@ -76,6 +82,7 @@ public class GameManager : MonoBehaviour
         ChangeGameState(GameState.MainMenu);
     }
 
+    // Updates game state and notifies subscribers via event.
     private void ChangeGameState(GameState newGameState)
     {
         var oldGameState = GameState;
@@ -85,17 +92,20 @@ public class GameManager : MonoBehaviour
         GameStateChanged?.Invoke(oldGameState, newGameState);
     }
 
+    // Quits the application (build only).
     public void Quit()
     {
         Debug.Log("Quiting Gameplay");
         Application.Quit();
     }
 
+    // Sets Unity's time scale (pause/resume effect)
     public void SetTimeScale(float timeScale)
     {
         Time.timeScale = timeScale;
     }
 
+    // Locks/hides or unlocks/shows the mouse cursor depending on gameplay mode.    
     public void SetCursorMode(bool isGameplayFocussed)
     {
         if (isGameplayFocussed)
@@ -110,12 +120,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Cleans up static reference to the singleton.
     private void OnDestroy()
     {
         Instance = null;
     }
 }
 
+// Defines global game states.
 public enum GameState
 {
     MainMenu,

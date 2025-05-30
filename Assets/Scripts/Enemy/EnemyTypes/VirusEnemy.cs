@@ -1,3 +1,4 @@
+// Virus enemy that moves normally but visually oscillates with a sine wave effect and explodes on player contact.
 using UnityEngine;
 
 public class VirusEnemy : EnemyBase
@@ -12,6 +13,7 @@ public class VirusEnemy : EnemyBase
 
     private float _startY;
 
+    // Overrides NavMesh speed from VirusEnemySO and caches initial Y position for sine movement.
     protected override void Start()
     {
         base.Start();
@@ -22,6 +24,7 @@ public class VirusEnemy : EnemyBase
         _startY = transform.position.y;
     }
 
+    // Deals damage to player on contact using values from SO.
     public override void DealDamage(GameObject target)
     {
         if (target.TryGetComponent(out PlayerHealth playerHealth))
@@ -30,6 +33,7 @@ public class VirusEnemy : EnemyBase
         }
     }
 
+    // On touching the player, damages them and self-destructs.
     private void OnTriggerEnter(Collider other)
     {
         if (isDead) return;
@@ -42,6 +46,7 @@ public class VirusEnemy : EnemyBase
         }
     }
 
+    // In addition to base behavior, applies vertical sine wave offset to the virus's visual model.
     public override void Update()
     {
         base.Update();

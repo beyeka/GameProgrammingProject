@@ -1,3 +1,5 @@
+// ScriptableObject (derived from WaveDataSO) for defining a wave of green virus enemies, including spawn settings.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

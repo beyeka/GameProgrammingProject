@@ -1,3 +1,4 @@
+// Camera controller script that handles mouse-based look movement for both player and camera pitch.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class CameraControl : MonoBehaviour {
         HandleLookX();
         HandleLookY();
     }
-
+// Rotates the player object horizontally based on mouse X input.
     private void HandleLookX()
     {
         float mouseX = Input.GetAxis("Mouse X");
@@ -24,7 +25,7 @@ public class CameraControl : MonoBehaviour {
         rotation.y += mouseX * _sensitivityX;
         player.transform.localEulerAngles = rotation;
     }
-
+// Rotates the camera vertically based on mouse Y input, with clamping to prevent over-rotation.
     private void HandleLookY()
     {
         float mouseY = Input.GetAxis("Mouse Y");

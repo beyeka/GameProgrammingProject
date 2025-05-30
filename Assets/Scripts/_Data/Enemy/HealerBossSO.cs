@@ -1,4 +1,5 @@
 
+// ScriptableObject for the Healer Boss, extending base enemy stats with healing-specific data.
 
 using UnityEngine;
 [CreateAssetMenu(fileName = "HealerBossData", menuName = "Characters/Healer Boss Data")]

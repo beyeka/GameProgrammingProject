@@ -1,3 +1,5 @@
+// ScriptableObject for ranged enemies, adds projectile attack data to the base enemy stats.
+
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewRangedEnemy", menuName = "Characters/Ranged Enemy Data")]

@@ -1,3 +1,4 @@
+// Handles gun shooting mechanics including ammo, fire rate, reloading, hit detection, SFX, and power-ups.
 using System;
 using UnityEngine;
 using System.Collections;
@@ -27,6 +28,7 @@ public class Gun : MonoBehaviour
 
     private bool _isActive;
 
+    // Sets initial values and states for the gun. Called once on first Activate.
     private void Initialize()
     {
         isReload = false;
@@ -36,6 +38,7 @@ public class Gun : MonoBehaviour
         _isInitialized = true;
     }
 
+    // Prepares gun for gameplay and prints current ammo.
     public void Activate()
     {
         if (!_isInitialized)
@@ -46,6 +49,7 @@ public class Gun : MonoBehaviour
         _isActive = true;
     }
 
+    // Disables gun logic, stops reload coroutine, resets states.
     public void Deactivate()
     {
         _isActive = false;
@@ -56,6 +60,7 @@ public class Gun : MonoBehaviour
         isReload = false;
     }
 
+    // Main update loop: handles input, shooting logic, and reload triggers.
     public void CustomUpdate()
     {
         if (!_isActive)
@@ -81,6 +86,7 @@ public class Gun : MonoBehaviour
         }
     }
 
+    // Plays shoot effects, handles ammo, raycasts for hit detection, and applies damage to enemies.
     void Shoot()
     {
         PlayShootSound();
@@ -120,11 +126,13 @@ public class Gun : MonoBehaviour
     }
 
 
+    // Updates ammo count on the UI.
     public void AmmoPrinter()
     {
         UIManager.Instance.gameplayUI.SetAmmoText(currentAmmo + "/" + magazine);
     }
 
+    // Plays reload animation, waits, then refills ammo.
     IEnumerator Reload()
     {
         isReload = true;
@@ -140,11 +148,13 @@ public class Gun : MonoBehaviour
         AmmoPrinter();
     }
 
+    // Temporarily boosts fire rate.
     public void ApplyFireRateBoost(float multiplier, float duration)
     {
         StartCoroutine(FireRateBoostRoutine(multiplier, duration));
     }
 
+    // Coroutine for applying and then resetting fire rate boost.
     private IEnumerator FireRateBoostRoutine(float multiplier, float duration)
     {
         fireRate *= multiplier;
@@ -152,11 +162,13 @@ public class Gun : MonoBehaviour
         fireRate /= multiplier;
     }
 
+    // Temporarily enables infinite ammo.
     public void EnableInfiniteAmmo(float duration)
     {
         StartCoroutine(InfiniteAmmoRoutine(duration));
     }
 
+    // Coroutine to toggle infinite ammo state for a duration.
     private IEnumerator InfiniteAmmoRoutine(float duration)
     {
         infiniteAmmo = true;
@@ -164,6 +176,7 @@ public class Gun : MonoBehaviour
         infiniteAmmo = false;
     }
 
+    // Plays gun fire SFX using the SoundManager.
     public void PlayShootSound()
     {
         SoundManager.Instance.PlaySound(sfxKeys);

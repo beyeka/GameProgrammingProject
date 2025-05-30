@@ -1,3 +1,4 @@
+// Custom UI Button that plays a click SFX and scales visually when pressed, with smooth transitions.
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,6 +15,8 @@ public class CustomButton : Button
     private float _targetScaleFactor = 1f;
     private float _currentScaleFactor = 1f;
 
+    
+    // Overrides the button state transitions to apply scaling on press.
     protected override void DoStateTransition(SelectionState state, bool instant)
     {
         base.DoStateTransition(state, instant);
@@ -31,6 +34,7 @@ public class CustomButton : Button
         }
     }
 
+    // Smoothly interpolates the button scale toward the target scale factor.
     protected virtual void Update()
     {
         if (Mathf.Approximately(_currentScaleFactor, _targetScaleFactor))
@@ -42,18 +46,21 @@ public class CustomButton : Button
         UpdateScaleFactor(scaleFactor);
     }
 
+    // Updates the current scale and applies it to the button's transform.
     private void UpdateScaleFactor(float scaleFactor)
     {
         _currentScaleFactor = scaleFactor;
         transform.localScale = _originalScale * _currentScaleFactor;
     }
 
+    // Resets the scale when the pointer exits the button.
     public override void OnPointerExit(PointerEventData eventData)
     {
-        base.OnPointerExit(eventData); // Make sure to call the base method to keep existing functionality
-        _targetScaleFactor = 1f; // Set scale back to original when pointer exits
+        base.OnPointerExit(eventData); 
+        _targetScaleFactor = 1f; 
     }
 
+    // Plays click SFX when the button is clicked.
     public override void OnPointerClick(PointerEventData eventData)
     {
         base.OnPointerClick(eventData);
@@ -61,11 +68,14 @@ public class CustomButton : Button
         RequestClickSFX();
     }
 
+    // Triggers the configured sound effect via SoundManager.
     protected virtual void RequestClickSFX()
     {
         SoundManager.Instance.PlaySound(_clickSFX);
     }
 
+    
+    // Editor-only: disables default button transition for full control over visuals.
 #if UNITY_EDITOR
     protected override void Reset()
     {

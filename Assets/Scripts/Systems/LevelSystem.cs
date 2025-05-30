@@ -1,3 +1,4 @@
+// Manages the player's XP, leveling, and XP UI animations during gameplay.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ public class LevelSystem : MonoBehaviour
 
     private bool _isActive;
 
+    // Initializes XP bar and level text, and enables the system.
     public void StartGameplay()
     {
         frontXpBar.fillAmount = currentXp / requiredXp;
@@ -30,6 +32,7 @@ public class LevelSystem : MonoBehaviour
         _isActive = true;
     }
 
+    // Updates XP UI if active, handles test XP gain, and checks for level-up.
     void Update()
     {
         if (!_isActive)
@@ -47,6 +50,7 @@ public class LevelSystem : MonoBehaviour
         }
     }
 
+    // Animates front/back XP bars and updates XP text display.
     public void UpdateXpUI()
     {
         float xpFraction = currentXp / requiredXp;
@@ -66,6 +70,7 @@ public class LevelSystem : MonoBehaviour
         xpText.text = currentXp + "/" + requiredXp;
     }
 
+    // Adds XP and resets timers for UI interpolation.
     public void GainExperienceFlatRate(float xpGained)
     {
         currentXp += xpGained;
@@ -73,6 +78,7 @@ public class LevelSystem : MonoBehaviour
         delayTImer = 0f;
     }
 
+    // Increases level, resets bars, gives bonus (like health), updates UI and XP requirement.
     public void LevelUp()
     {
         level++;
@@ -86,6 +92,7 @@ public class LevelSystem : MonoBehaviour
         requiredXp += level * 6;
     }
 
+    // Resets level, XP, and timers to their initial values.
     public void ResetEverything()
     {
         level = 1;
@@ -95,6 +102,7 @@ public class LevelSystem : MonoBehaviour
         delayTImer = 0;
     }
 
+    // Disables XP tracking and UI updates.
     public void FinishGameplay()
     {
         _isActive = false;

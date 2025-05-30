@@ -1,3 +1,4 @@
+// Handles player movement, jumping, and gravity using CharacterController. Supports gameplay toggling and speed boosts.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool _isActive;
 
+    // Runs movement input, gravity, ground check, and jump logic if active.
     public void CustomUpdate()
     {
         if (!_isActive)
@@ -30,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
         Jump();
     }
 
+    // Gets WASD movement input and moves the character.
     private void GetMovementInputs()
     {
         float x = Input.GetAxis("Horizontal");
@@ -39,12 +42,14 @@ public class PlayerMovement : MonoBehaviour
         CharacterController.Move(movementDirection * (Time.deltaTime * movementSpeed));
     }
 
+    // Applies gravity to the vertical velocity and moves the character downward.
     private void AddGravity()
     {
         velocity.y += gravity * Time.deltaTime;
         CharacterController.Move(velocity * Time.deltaTime);
     }
 
+    // Checks if the player is grounded using a sphere check and resets vertical velocity when landing.
     private void IsGroundedCheck()
     {
         isGround = Physics.CheckSphere(groundChecker.position, groundDistance, groundMask);
@@ -55,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Performs a jump if grounded and jump key is pressed.
     private void Jump()
     {
         if (Input.GetButtonDown("Jump") & isGround)
@@ -63,10 +69,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Temporarily increases movement speed with a coroutine.
     public void ApplySpeedBoost(float multiplier, float duration)
     {
         StartCoroutine(SpeedBoostRoutine(multiplier, duration));
     }
+
+    // Applies the speed multiplier, waits, then reverts.
 
     private IEnumerator SpeedBoostRoutine(float multiplier, float duration)
     {
@@ -76,11 +85,13 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+    // Enables player movement.
     public void StartGameplay()
     {
         _isActive = true;
     }
 
+    // Disables player movement.
     public void FinishGameplay()
     {
         _isActive = false;

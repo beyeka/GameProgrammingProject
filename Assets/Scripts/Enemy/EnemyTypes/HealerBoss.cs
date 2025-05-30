@@ -1,3 +1,4 @@
+// Specialized enemy class for the Healer Boss. Heals nearby enemies periodically using data from HealerBossSO.
 using System.Collections;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class HealerBoss : EnemyBase
 
     private Coroutine _healCoroutine;
 
+    // Initializes healing values from SO and starts healing coroutine.
     protected override void Start()
     {
         base.Start();
@@ -23,6 +25,7 @@ public class HealerBoss : EnemyBase
         _healCoroutine = StartCoroutine(HealNearbyEnemiesRoutine());
     }
 
+    // Continuously heals nearby enemies at fixed intervals while boss is alive.
     private IEnumerator HealNearbyEnemiesRoutine()
     {
         WaitForSeconds wait = new WaitForSeconds(healInterval);
@@ -34,6 +37,7 @@ public class HealerBoss : EnemyBase
         }
     }
 
+    // Heals all nearby alive enemies within a certain radius using Physics.OverlapSphere.
     private void HealNearbyEnemies()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, healRadius, enemyLayer);
@@ -51,6 +55,7 @@ public class HealerBoss : EnemyBase
     }
 
 
+    // Stops healing coroutine on death, then runs base death logic.
     public override void Die()
     {
         base.Die();
@@ -59,6 +64,7 @@ public class HealerBoss : EnemyBase
             StopCoroutine(_healCoroutine);
     }
 
+    // (Editor only) Draws a wire sphere to visualize heal radius in the Scene view.
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {

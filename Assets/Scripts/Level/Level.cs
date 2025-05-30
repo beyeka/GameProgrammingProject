@@ -1,3 +1,5 @@
+// Central controller for managing level-wide systems and coordinating their start/finish lifecycle.
+
 using System.Collections;
 using System.Collections.Generic;
 using DigitalRuby.RainMaker;
@@ -10,6 +12,8 @@ public class Level : MonoBehaviour
     public PowerUpManager powerUpManager;
     public RainScript rainScript;
     public BossSpawner bossSpawner;
+    
+    // Starts all core gameplay systems and toggles rain sound based on music settings.
     public void StartGameplay()
     {
         enemySpawner.StartGameplay();
@@ -25,6 +29,7 @@ public class Level : MonoBehaviour
             rainScript.MuteAll();
     }
 
+    // Stops all core gameplay systems.
     public void FinishGameplay()
     {
         enemySpawner.FinishGameplay();

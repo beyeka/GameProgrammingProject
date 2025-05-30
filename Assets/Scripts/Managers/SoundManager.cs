@@ -1,3 +1,4 @@
+// Central sound manager handling music and SFX playback with pooling and toggles. Supports main menu, gameplay, and boss themes.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,11 +25,13 @@ public class SoundManager : MonoBehaviour
 
     public float defaultMusicVolume = 0.2f;
 
+    // Sets up singleton instance.
     private void Awake()
     {
         Instance = this;
     }
 
+    // Creates audio source pool and sets initial sound levels + toggles.
     public void Initialize()
     {
         CreateAudioSources();
@@ -39,6 +42,7 @@ public class SoundManager : MonoBehaviour
         isMusicOn = true;
     }
 
+    // Fills the audio source pool for reuse.
     public void CreateAudioSources()
     {
         _audioSources = new List<AudioSource>(audioSourcePoolSize);
@@ -49,6 +53,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    // Plays a sound effect using a pooled audio source if SFX is enabled.
     public void PlaySound(SFXKeys sfxKey)
     {
         if (!isSfxOn)
@@ -69,13 +74,8 @@ public class SoundManager : MonoBehaviour
         source.clip = clip;
         source.Play();
     }
-
-    public void PlayMusic()
-    {
-        if (!isMusicOn)
-            return;
-    }
-
+    
+    // Sets default volume for all music sources.
     private void SetSoundLevels()
     {
         gameplayMusicAudioSource.volume = defaultMusicVolume;
@@ -83,6 +83,7 @@ public class SoundManager : MonoBehaviour
         bossMusicAudioSource.volume = defaultMusicVolume;
     }
 
+    // Updates volume of music sources based on isMusicOn toggle.
     public void MusicOnOffChanged()
     {
         gameplayMusicAudioSource.volume = isMusicOn ? defaultMusicVolume : 0;
@@ -90,6 +91,7 @@ public class SoundManager : MonoBehaviour
         bossMusicAudioSource.volume = isMusicOn ? defaultMusicVolume : 0;
     }
 
+    // Returns the first non-playing audio source from the pool.
     private AudioSource GetAvailableAudioSource()
     {
         foreach (var source in _audioSources)
@@ -101,6 +103,7 @@ public class SoundManager : MonoBehaviour
         return null;
     }
 
+    // Adds and configures a new audio source to the pool, unless max size is reached.
     private AudioSource AddNewAudioSource()
     {
         if (_audioSources.Count >= _maxSize)
@@ -112,6 +115,7 @@ public class SoundManager : MonoBehaviour
         return newSource;
     }
 
+    // Stops all music and plays main menu track.
     public void PlayMainMenuMusic()
     {
         StopAllMusics();
@@ -119,6 +123,7 @@ public class SoundManager : MonoBehaviour
         menuMusicAudioSource.Play();
     }
 
+    // Stops all music and plays gameplay track.
     public void PlayGameplayMusic()
     {
         StopAllMusics();
@@ -126,19 +131,22 @@ public class SoundManager : MonoBehaviour
         gameplayMusicAudioSource.Play();
     }
 
+    // Stops all music and plays boss fight track.DONT HAVE IT YET.
     public void PlayBossFightMusic()
     {
-        // TODO : Call when boss comes
+        
         StopAllMusics();
 
         bossMusicAudioSource.Play();
     }
 
+    // Stops the gameplay music source.
     public void StopGameplayMusic()
     {
         gameplayMusicAudioSource.Stop();
     }
 
+    // Stops all music sources.
     private void StopAllMusics()
     {
         gameplayMusicAudioSource.Stop();
@@ -146,12 +154,15 @@ public class SoundManager : MonoBehaviour
         menuMusicAudioSource.Stop();
     }
 
+    // Clears singleton reference on destruction.
+
     private void OnDestroy()
     {
         Instance = null;
     }
 }
 
+// Serializable class that maps a sound effect key to an AudioClip.
 [Serializable]
 public class SoundData
 {
@@ -159,6 +170,7 @@ public class SoundData
     public AudioClip audioClip;
 }
 
+// Enum for identifying different sound effects.
 public enum SFXKeys
 {
     UI_Button_Click,

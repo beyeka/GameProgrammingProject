@@ -1,9 +1,11 @@
+// Manages object pooling for enemies to optimize performance by reusing GameObjects instead of instantiating/destroying.
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyPoolManager : MonoBehaviour
 {
     [System.Serializable]
+    // Serializable struct defining each prefab type and how many to pre-instantiate.
     public class Pool
     {
         public GameObject prefab;
@@ -16,6 +18,8 @@ public class EnemyPoolManager : MonoBehaviour
 
     private Dictionary<GameObject, Queue<GameObject>> poolDictionary = new();
 
+    
+    // Initializes the singleton instance and preloads pooled enemies based on defined Pool configs.
     private void Awake()
     {
         Instance = this;
@@ -33,6 +37,7 @@ public class EnemyPoolManager : MonoBehaviour
         }
     }
 
+    // Spawns an enemy from the pool or instantiates a new one if pool is empty. Sets position, rotation, and activates it.
     public GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation)
     {
         var queue = poolDictionary[prefab];
@@ -45,6 +50,7 @@ public class EnemyPoolManager : MonoBehaviour
         return obj;
     }
 
+    // Despawns an enemy by deactivating it and returning it to the pool. Destroys it if the pool doesn't exist.
     public void Despawn(GameObject obj, GameObject prefab)
     {
         obj.GetComponent<IPoolable>()?.OnDespawn();

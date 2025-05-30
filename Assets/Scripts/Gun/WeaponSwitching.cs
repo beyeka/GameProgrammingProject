@@ -1,3 +1,5 @@
+// Handles weapon switching between multiple guns using number keys. Activates selected gun and deactivates the previous one.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +13,7 @@ public class WeaponSwitching : MonoBehaviour
 
     private bool _isActive;
 
+    // Listens for input to switch weapons. Updates active gun if selection changes.
     public void Update()
     {
         if (!_isActive)
@@ -38,6 +41,7 @@ public class WeaponSwitching : MonoBehaviour
         }
     }
 
+    // Initializes with the first gun and enables switching.
     public void StartGameplay()
     {
         _selectedGun = guns[0];
@@ -47,6 +51,7 @@ public class WeaponSwitching : MonoBehaviour
         _isActive = true;
     }
 
+    // Disables weapon switching input.
     public void FinishGameplay()
     {
         _isActive = false;

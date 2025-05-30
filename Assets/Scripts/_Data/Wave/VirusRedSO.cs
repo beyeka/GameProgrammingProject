@@ -1,3 +1,5 @@
+// ScriptableObject (inheriting from WaveDataSO) for red virus enemy waves, defining spawn count and delay per enemy type.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

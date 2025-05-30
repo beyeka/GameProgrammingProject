@@ -1,3 +1,4 @@
+// Central UI manager controlling which UI screen is active based on game state and events.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ public class UIManager : MonoBehaviour
     public SuccessUI successUI;
     public SettingsUI settingsUI;
 
+    // Sets up singleton instance and subscribes to UI and GameManager events.
     private void Awake()
     {
         Instance = this;
@@ -22,6 +24,7 @@ public class UIManager : MonoBehaviour
         SubscribeEvents();
     }
 
+    // Hooks into GameManager and MainMenuUI events to react to state changes and button presses.
     private void SubscribeEvents()
     {
         gameManager.GameStateChanged += OnGameStateChanged;
@@ -32,6 +35,7 @@ public class UIManager : MonoBehaviour
         mainMenuUI.QuitButtonClicked += OnQuitButtonClicked;
     }
 
+    // Displays the success or fail UI depending on gameplay result.
     private void OnGameplayFinished(bool isSuccess)
     {
         if (isSuccess)
@@ -44,6 +48,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    // Shows the appropriate UI based on the new game state.
     private void OnGameStateChanged(GameState oldGameState, GameState newGameState)
     {
         HideAllUI();
@@ -61,22 +66,26 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    // Starts the game from level 0 when Play is pressed.
     private void OnPlayButtonClicked()
     {
         var levelIndex = 0;
         gameManager.StartGameplay(levelIndex);
     }
 
+    // Opens the Settings UI.
     private void OnSettingsButtonClicked()
     {
         settingsUI.Show();
     }
 
+    // Calls GameManager to quit the application.
     private void OnQuitButtonClicked()
     {
         gameManager.Quit();
     }
 
+    // Hides all UI screens to ensure only the relevant one is shown.
     private void HideAllUI()
     {
         mainMenuUI.Hide();
@@ -86,6 +95,7 @@ public class UIManager : MonoBehaviour
         settingsUI.Hide();
     }
 
+    // Unsubscribes all hooked events to prevent memory leaks.
     private void UnsubscribeEvents()
     {
         gameManager.GameStateChanged -= OnGameStateChanged;
@@ -95,6 +105,7 @@ public class UIManager : MonoBehaviour
         mainMenuUI.QuitButtonClicked -= OnQuitButtonClicked;
     }
 
+    // Cleans up singleton reference and event subscriptions.
     private void OnDestroy()
     {
         UnsubscribeEvents();

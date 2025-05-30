@@ -1,3 +1,5 @@
+// ScriptableObject that holds a list of sound data and provides a method to fetch AudioClips by SFX key.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

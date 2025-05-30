@@ -1,3 +1,5 @@
+// Manages player health logic, including damage, healing, death, and animated UI feedback.
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +22,7 @@ public class PlayerHealth : MonoBehaviour
 
     private bool _isActive;
 
+    // Runs health logic if active, updates UI, and handles debug input for damage/heal.
     public void CustomUpdate()
     {
         if (!_isActive)
@@ -39,6 +42,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    // Animates front/back health bars to show health changes over time and updates text.
     public void UpdateHealthUI()
     {
         float fillFront = frontHealthBar.fillAmount;
@@ -67,6 +71,7 @@ public class PlayerHealth : MonoBehaviour
         healthText.text = Mathf.Round(health) + "/" + Mathf.Round(maxHealth);
     }
 
+    // Decreases health, clamps it, and triggers death if needed (ignores damage if GodMode is active).
     public void TakeDamage(float amount)
     {
         if(GameManager.IsGodModeActive)
@@ -80,23 +85,27 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    // Heals player without exceeding max health, resets lerp timer.
     public void RestoreHealth(float healAmount)
     {
         health = Mathf.Min(health + healAmount, maxHealth);
         lerpTimer = 0f;
     }
 
+    // Invokes death event.
     public void Die()
     {
         PlayerDied?.Invoke();
     }
 
+    // Increases max and current health by 10%.
     public void IncreaseHealth()
     {
         maxHealth += maxHealth * 0.1f;
         health += maxHealth * 0.1f;
     }
 
+    // Initializes health and binds UI references from the UIManager.
     public void StartGameplay()
     {
         ResetHp();
@@ -108,11 +117,13 @@ public class PlayerHealth : MonoBehaviour
         _isActive = true;
     }
 
+    // Disables health updates.
     public void FinishGameplay()
     {
         _isActive = false;
     }
 
+    // Resets current health to max.
     private void ResetHp()
     {
         health = maxHealth;

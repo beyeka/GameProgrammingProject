@@ -1,3 +1,5 @@
+// ScriptableObject for advanced enemy wave configurations, supports multiple spawn sets with custom spawn points and enemy data.
+
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "WaveData", menuName = "Spawning/Advanced Wave Data")]

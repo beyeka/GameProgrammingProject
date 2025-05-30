@@ -1,3 +1,4 @@
+// Ranged enemy behavior extending EnemyBase. Fires projectiles at player with rotation alignment.
 using UnityEngine;
 
 public class RangedEnemy : EnemyBase
@@ -6,6 +7,7 @@ public class RangedEnemy : EnemyBase
 
     private RangedEnemySO RangedData => (RangedEnemySO)GetData();
 
+    // Checks distance and cooldown, then rotates to face player and triggers attack.
     protected override void HandleAttack()
     {
         float distance = Vector3.Distance(transform.position, playerTransform.position);
@@ -18,6 +20,7 @@ public class RangedEnemy : EnemyBase
         }
     }
 
+    // Instantiates projectile, sets velocity toward player, and assigns damage.
     public override void Attack()
     {
         var rangedProjectile =
@@ -36,7 +39,8 @@ public class RangedEnemy : EnemyBase
             projectile.SetDamage(RangedData.projectileDamage);
     }
 
-
+    
+    // Rotates the enemy horizontally to face the player before shooting.
     private void RotateToFacePlayer()
     {
         Vector3 direction = (playerTransform.position - transform.position).normalized;

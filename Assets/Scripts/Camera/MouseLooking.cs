@@ -1,3 +1,5 @@
+// Handles first-person mouse look logic with sensitivity and activation control.
+// Applies vertical rotation to the camera and horizontal rotation to the player.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,19 +17,21 @@ public class MouseLooking : MonoBehaviour
 
     private bool _isActive;
 
-
+// Enables mouse look and sets sensitivity if unset.
     public void StartGameplay()
     {
         _isActive = true;
         
         SetSensitivity();
     }
-
+    
+// Disables mouse look input.
     public void FinishGameplay()
     {
         _isActive = false;
     }
-
+    
+// Custom update method, only processes input if active.
     public void CustomUpdate()
     {
         if(!_isActive)
@@ -35,7 +39,8 @@ public class MouseLooking : MonoBehaviour
         
         SetMovementInputs();
     }
-
+    
+// Assigns default sensitivity if none is set.
     private void SetSensitivity()
     {
         if (mouseSensitivity == 0)
@@ -43,7 +48,8 @@ public class MouseLooking : MonoBehaviour
             mouseSensitivity = 200f;
         }
     }
-
+    
+// Reads mouse delta, applies vertical rotation to camera and horizontal rotation to player with clamping.
     private void SetMovementInputs()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
